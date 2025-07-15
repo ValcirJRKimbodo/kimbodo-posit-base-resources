@@ -3,11 +3,11 @@ entries:
   kimbodo-posit-base-resources:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2025-07-15T17:53:22.9572989-03:00"
+    created: "2025-07-15T17:57:58.4589358-03:00"
     description: A chart to deploy a base-structure to use Posit tools
     digest: df199dcc1101605a80cc918d4eb59903526b636d1b1aea9a0733b8c643863879
     name: kimbodo-posit-base-resources
     urls:
     - https://valcirjrkimbodo.github.io/kimbodo-posit-base-resources/kimbodo-posit-base-resources-0.0.1.tgz
     version: 0.0.1
-generated: "2025-07-15T17:53:22.9553462-03:00"
+generated: "2025-07-15T17:57:58.4579079-03:00"
