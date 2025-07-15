@@ -1,0 +1,7 @@
+# artifacthub-repo.yml
+repositoryID: 
+name: kimbodo-posit-base-resources
+displayName: Kimbodo Posit Base Resources
+description: Resources needed to install kimbodo-posit 
+type: helm
+url: https://ValcirJRKimbodo.github.io/kimbodo-posit-base-resources
