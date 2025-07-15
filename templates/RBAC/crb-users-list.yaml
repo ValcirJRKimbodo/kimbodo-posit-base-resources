@@ -1,0 +1,15 @@
+{{- range .Values.global.rbac.users }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ printf "user-%s-%s" (.name | replace "@" "-" | replace "." "-") .role }}
+subjects:
+- kind: User
+  name: {{ .name }}
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: {{- if eq .role "viewer"}} kimbodo-viewer{{- end}}{{- if eq .role "editor"}} kimbodo-editor{{- end}}{{- if eq .role "admin"}} kimbodo-admin{{- end}}
+  apiGroup: rbac.authorization.k8s.io
+---  
+{{- end }}

@@ -1,0 +1,27 @@
+{{- $workbenchIngress := index .Values "rstudio-workbench" "ingressHost" -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: posit-workbench
+  namespace: {{ .Values.global.namespaces.rstudioWorkbench }}
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: "devops-rg"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ $workbenchIngress }}
+    secretName: letsencrypt-prod-account-key
+  rules:
+  - host: {{ $workbenchIngress }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: rstudio-workbench
+            port:
+              number: 8787

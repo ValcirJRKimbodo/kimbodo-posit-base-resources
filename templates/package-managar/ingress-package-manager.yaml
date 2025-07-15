@@ -1,0 +1,28 @@
+{{- $connecetIngress := index .Values "rstudio-pm" "ingressHost" -}}
+{{- $fullName := index .Values "rstudio-pm" "fullnameOverride" -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  namespace: {{ .Values.global.namespaces.rstudioPackageManager }}
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: "devops-rg"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ $connecetIngress }}
+    secretName: letsencrypt-prod-account-key
+  rules:
+  - host: {{ $connecetIngress }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $fullName }}
+            port:
+              number: 4242

@@ -1,0 +1,88 @@
+## @@ Section GLOBAL ##
+global:
+  namespaces:
+    rstudioConnect: rstudio-connect
+    rstudioWorkbench: rstudio-workbench
+    rstudioPackageManager: rstudio-package-manager
+    postgresql: postgresql
+    nfsServerProvisioner: nfs-server-provisioner
+
+  # -- workbench license in base64
+  wbLicense: 
+  # -- connect license in base64
+  ctLicense: 
+
+  # -- clusterIssuer is the object to set properties to thee issuer that calls letsencrypt
+  clusterIssuer:
+    # -- enbled is if we gonna create it or not
+    enabled: true
+    # -- name is the letscrypt metadaname
+    name: letsencrypt-prod
+    # -- email is required by letsencrypt
+    email: 
+    # -- server is the lesencrypt server to get the cert. Default value is prod
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # -- accountKeySecret is the metadaname of the key generated 
+    accountKeySecret: letsencrypt-prod-account-key
+
+  # -- postresql section is used by postgresql chart
+  postgresql:
+    # -- auth is the object that postgre creat at the first execution
+    auth:      
+      # username is the username to be created
+      username: 
+      # password is the password for this user
+      password: 
+      # database is one database to bee created at the first execution
+      database: 
+
+  # -- cloud provider is the a string to chose the provider to install thiss resources
+  # -- it can be AWS, GCP or AZURE
+  cloudProvider: GCP
+
+  # -- HTTPs resolver
+  httpsResolver:
+    # -- enable it if needs to generate a TLS key and crt by some provider
+    enabled: true
+    # -- api is a String to set the api to generate the crt
+    # -- it can be LETSENCRYPT or BUYPASS
+    api: LETSENCRYPT
+
+  # -- users and roles for this cluster
+  rbac:
+    # -- list of users
+    # -- each user have name and role
+    # -- roles: viewer, editor and admin
+    # -- to GCP name needs to be the Google Account used to access GCP    
+    users: []
+
+
+# @@Section restudio-connect
+rstudio-connect:
+  # -- Custom name override for RStudio Connect release
+  fullnameOverride: rstudio-connect
+  hpa:
+    # -- Minimum number of pods for RStudio Connect autoscaling
+    minReplicas: 1
+    # -- Maximum number of pods for RStudio Connect autoscaling
+    maxReplicas: 5
+
+# @@Section restudio-workbench
+rstudio-workbench:
+  # -- Custom name override for RStudio Workbench release
+  fullnameOverride: rstudio-workbench
+  hpa:
+    # -- Minimum number of pods for RStudio Workbench autoscaling
+    minReplicas: 1
+    # -- Maximum number of pods for RStudio Workbench autoscaling
+    maxReplicas: 5
+
+# @@Section restudio-pm
+rstudio-pm:
+  # -- Custom name override for RStudio Package Manager release 
+  fullnameOverride: rstudio-package-manager
+  hpa:
+    # -- Minimum number of pods for RStudio Package Manager autoscaling
+    minReplicas: 1
+    # -- Maximum number of pods for RStudio Package Manager autoscaling
+    maxReplicas: 5

@@ -1,0 +1,33 @@
+{{- $connecetIngress := index .Values "rstudio-connect" "ingressHost" -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: posit-connect
+  namespace: {{ .Values.global.namespaces.rstudioConnect }}
+  annotations:
+    {{- if .Values.global.httpsResolver.enabled  }}
+    {{- if eq .Values.global.httpsResolver.api "LETSENCRYPT"}}
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    {{- end}}
+    {{- end}}
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    {{- if eq .Values.global.cloudProvider "AZURE" }}
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: "devops-rg"
+    {{- end}}
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ $connecetIngress }}
+    secretName: letsencrypt-prod-account-key
+  rules:
+  - host: {{ $connecetIngress }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: rstudio-connect
+            port:
+              number: 3939
