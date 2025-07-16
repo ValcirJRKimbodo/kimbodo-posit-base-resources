@@ -25,12 +25,10 @@ jobs:
 
       - name: Create gh-pages branch dir
         run: |
-          mkdir -p gh-pages
-          cp -r charts gh-pages/
-          cd gh-pages/charts
-          helm package */ -d ../
-          rm -rf */
-          helm repo index . --url https://valcirjrkimbodo.github.io/kimbodo-posit-base-resources
+          mkdir -p gh-pages  
+          helm package charts/* -d gh-pages
+          helm repo index gh-pages --url https://valcirjrkimbodo.github.io/kimbodo-posit-base-resources
+
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
