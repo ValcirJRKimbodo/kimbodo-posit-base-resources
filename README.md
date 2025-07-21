@@ -10,6 +10,7 @@ Base resources to create a K8s environment by kimbodo with posit tools
 | `.global.namespaces.nfsServerProvisioner` | *string* | `nfs-server-provisioner` | The namespace for NFS Server Provisioner |
 | `.global.wbLicense` | *string (base64)* | `""` | RStudio Workbench license key in base64 format |
 | `.global.ctLicense` | *string (base64)* | `""` | RStudio Connect license key in base64 format |
+| `.global.pmLicense` | *string (base64)* | `""` | RStudio Package-manager license key in base64 format |
 | `.global.clusterIssuer.enabled` | *bool* | `true` | Whether to create the `ClusterIssuer` object |
 | `.global.clusterIssuer.name` | *string* | `letsencrypt-prod` | Metadata name of the Let's Encrypt ClusterIssuer |
 | `.global.clusterIssuer.email` | *string* | `""` | Email required by Let's Encrypt |

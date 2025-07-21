@@ -11,6 +11,8 @@ global:
   wbLicense: 
   # -- connect license in base64
   ctLicense: 
+  # -- package manager license in base64
+  pmLicense:
 
   # -- clusterIssuer is the object to set properties to thee issuer that calls letsencrypt
   clusterIssuer:
